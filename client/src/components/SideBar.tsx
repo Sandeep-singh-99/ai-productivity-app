@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  BarChart,
-  FileText,
+  BrainCircuit,
+  Eraser,
+  FilePen,
+  Hash,
+  Home,
+  Image,
   LayoutDashboard,
-  MessageCircle,
-  Settings,
+  Scissors,
+  ScrollText,
+  UsersRound,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -39,56 +44,108 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
   return (
     <div className="h-full px-4 py-6">
       <div className="flex items-center gap-2 mb-8 px-2">
-        <Link to={"/"}>
-        <span className="text-xl font-bold">Blog App</span>
+        <Link to={"/"} className="flex items-center gap-2">
+          <BrainCircuit />
+          <span className="text-xl font-bold">Prodexa AI</span>
         </Link>
       </div>
       <nav className="space-y-1">
-        <Link to={"/dashboard"}>
+        {/* Navigation Links */}
+        {/* Home Link */}
+        <Link to={"/home/dashboard"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
             onClick={closeSheet}
           >
-            <LayoutDashboard className="mr-2 h-4 w-4" />
-            Overview
+            <Home className="mr-2 h-4 w-4" />
+            Dashboard
           </Button>
         </Link>
 
-        <Link to={"/dashboard/articles/create"}>
+        {/* Article Link */}
+        <Link to={"/home/article"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
             onClick={closeSheet}
           >
-            <FileText className="mr-2 h-4 w-4" />
-            Articles
+            <FilePen className="mr-2 h-4 w-4" />
+            Write Articles
           </Button>
         </Link>
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={closeSheet}
-        >
-          <MessageCircle className="mr-2 h-4 w-4" />
-          Comments
-        </Button>
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={closeSheet}
-        >
-          <BarChart className="mr-2 h-4 w-4" />
-          Analytics
-        </Button>
-        <Button
-          variant="ghost"
-          className="w-full justify-start"
-          onClick={closeSheet}
-        >
-          <Settings className="mr-2 h-4 w-4" />
-          Settings
-        </Button>
+
+        {/* Blog Link */}
+        <Link to={"/home/blog"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <Hash className="mr-2 h-4 w-4" />
+            Blog Titles
+          </Button>
+        </Link>
+
+        {/* Generate Image Link */}
+        <Link to={"/home/g-image"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <Image className="mr-2 h-4 w-4" />
+            Generate Image
+          </Button>
+        </Link>
+
+        {/* Remove Background Link */}
+        <Link to={"/home/r-background"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <Eraser className="mr-2 h-4 w-4" />
+            Remove Background
+          </Button>
+        </Link>
+
+        {/* Remove Object Link */}
+        <Link to={"/home/r-object"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <Scissors className="mr-2 h-4 w-4" />
+            Remove Object
+          </Button>
+        </Link>
+
+        {/* Resume Link */}
+        <Link to={"/home/resume"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <ScrollText className="mr-2 h-4 w-4" />
+            Review Resume
+          </Button>
+        </Link>
+
+        {/* Community Link */}
+        <Link to={"/home/community"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <UsersRound className="mr-2 h-4 w-4" />
+            Community
+          </Button>
+        </Link>
       </nav>
     </div>
   );
