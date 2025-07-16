@@ -18,7 +18,7 @@ export default function HeroSection() {
         <div className="md:space-y-7 space-y-10">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
             Create amazing content with
-            <span className="text-transparent ml-3 bg-clip-text bg-gradient-to-r from-gray-300 to-gray-500">
+            <span className="text-transparent gradient-title ml-3 bg-clip-text">
               AI tools
             </span>
           </h1>
