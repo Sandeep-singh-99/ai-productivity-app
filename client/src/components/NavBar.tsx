@@ -2,15 +2,13 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
 
-// bg-gradient-to-r from-gray-300 to-gray-500
-
 export default function NavBar() {
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to={"/"}>
           <span className="bg-clip-text font-bold text-2xl">
-            AI Productivity App
+            Prodexa AI
           </span>
         </Link>
 
