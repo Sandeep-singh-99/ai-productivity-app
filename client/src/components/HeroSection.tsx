@@ -8,13 +8,14 @@ import img5 from "../assets/linkedin.svg";
 import img6 from "../assets/netflix.svg";
 import img7 from "../assets/react.svg";
 import img8 from "../assets/slack.svg";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
   const logos = [img1, img2, img3, img4, img5, img6, img7, img8];
 
   return (
     <div className="w-full mx-auto min-h-screen px-4">
-      <div className="max-w-5xl mx-auto text-center pt-20  flex flex-col items-center justify-between min-h-screen">
+      <div className="max-w-5xl mx-auto text-center pt-24 md:pt-28 xl:pt-20 lg:pt-36  flex flex-col items-center justify-between min-h-screen">
         <div className="md:space-y-7 space-y-10">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
             Create amazing content with
@@ -29,9 +30,11 @@ export default function HeroSection() {
           </p>
 
           <div className="flex  justify-center gap-4">
-            <Button size={"lg"} variant={"default"} className="font-semibold">
+            <Link to={"/home/dashboard"}>
+             <Button size={"lg"} variant={"default"} className="font-semibold">
               Start Creating Now
             </Button>
+            </Link>
             <Button variant={"outline"} size={"lg"} className="font-semibold">
               Watch Demo
             </Button>

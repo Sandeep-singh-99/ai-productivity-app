@@ -14,7 +14,7 @@ export default function NavBar() {
         </Link>
 
         <div className="flex items-center space-x-2 md:space-x-4">
-          <Link to={"/dashboard"}>
+          <Link to={"/home/dashboard"}>
             <Button variant={"outline"} className="md:flex">
               <LayoutDashboard className="h-4 w-4" />
               <span className="hidden md:block">Dashboard Insights</span>
