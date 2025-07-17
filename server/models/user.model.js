@@ -22,7 +22,7 @@ const userSchema = new Schema({
     imageUrl: {
         type: String,
     }
-})
+},{ timestamps: true });
 
 const User = model('User', userSchema);
 
