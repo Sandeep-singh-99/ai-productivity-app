@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
-import { BrainCircuit } from 'lucide-react';
+import { BrainCircuit } from "lucide-react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 export default function NavBar() {
   return (
@@ -13,13 +19,22 @@ export default function NavBar() {
           </span>
         </Link>
 
-        <div className="flex items-center space-x-2 md:space-x-4">
+        <div className="flex flex-row items-center space-x-2 md:space-x-4">
           <Link to={"/home/dashboard"}>
             <Button variant={"outline"} className="md:flex">
               <LayoutDashboard className="h-4 w-4" />
               <span className="hidden md:block">Dashboard Insights</span>
             </Button>
           </Link>
+
+          <div>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
       </nav>
     </header>
