@@ -1,4 +1,4 @@
-import { Sparkles, SquarePen } from "lucide-react";
+import { Image, Sparkles } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
@@ -29,14 +29,14 @@ export default function GImageForm() {
         </div>
 
         <div className="space-y-4">
-          <Label className="font-semibold text-lg">Category</Label>
+          <Label className="font-semibold text-lg">Style</Label>
           <Select>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Categories</SelectLabel>
+                <SelectLabel>Styles</SelectLabel>
                 <SelectItem value="realistic">Realistic</SelectItem>
                 <SelectItem value="anime">Anime Style</SelectItem>
                 <SelectItem value="cartoon">Cartoon Style</SelectItem>
@@ -50,8 +50,8 @@ export default function GImageForm() {
 
       <CardFooter>
         <Button className="" variant={"outline"}>
-          <SquarePen className="h-4 w-4 mr-2" />
-          Generate Blog
+          <Image className="h-4 w-4 mr-2" />
+          Generate Image
         </Button>
       </CardFooter>
     </Card>

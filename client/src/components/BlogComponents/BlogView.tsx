@@ -13,7 +13,7 @@ export default function BlogView() {
         <CardContent className="h-screen">
             <div className="flex flex-col items-center justify-center h-full space-y-4">
                 <SquarePen className="h-10 w-10" />
-                <p>Enter a topic click "Generate blog" to get started</p>
+                <p>Enter a topic and click "Generate blog" to get started</p>
             </div>
         </CardContent>
     </Card>
