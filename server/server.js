@@ -1,24 +1,35 @@
 import express from 'express';
-import dotenv, { config } from 'dotenv';
+import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
 import morgan from 'morgan';
+import rateLimit from 'express-rate-limit'
+import helmet from 'helmet';
+import csrf from 'csurf';
+import cookieParser from 'cookie-parser';
 
 import { ConnectDB } from './config/db.js';
+import userRoutes from './routes/user.router.js'
 
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+})
+
+app.use(limiter);
+app.use(helmet());
+app.use(csrf())
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-  res.send('Server is running');
-});
 
-
+app.use('/api/v1/user', userRoutes);
 
 app.listen(PORT, () => {
     console.log(`server is running on http://localhost:${PORT}`);

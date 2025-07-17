@@ -1,28 +1,54 @@
 import { model, Schema } from "mongoose";
+import bcrypt from 'bcryptjs';
 
 const userSchema = new Schema({
     firstName: {
         type: String,
+        required: true,
+        trim: true,
     },
 
     lastName: {
         type: String,
+        required: true,
+        trim: true,
     },
 
     email: {
         type: String,
         unique: true,
+        required: true,
+        trim: true,
     },
 
-    clerkUserId: {
+    password: {
         type: String,
-        unique: true,
+        required: true,
     },
 
     imageUrl: {
         type: String,
+        unique: true,
+        default: "https://www.pexels.com/photo/man-wearing-blue-crew-neck-t-shirt-2379005/"
+    },
+
+    imageUrlId: {
+        type: String,
+        unique: true,
     }
 },{ timestamps: true });
+
+
+userSchema.pre('save', async function(next) {
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 12);
+    }
+    next()
+})
+
+userSchema.methods.comparePassword = async function(password) {
+    return await bcrypt.compare(password, this.password)
+}
 
 const User = model('User', userSchema);
 
