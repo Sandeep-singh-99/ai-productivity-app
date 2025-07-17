@@ -1,23 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { ThemeProvider } from './components/theme-provider.tsx'
-import { RouterProvider } from 'react-router-dom'
-import routes from './route/route.tsx'
-  import { ClerkProvider } from '@clerk/clerk-react'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { ThemeProvider } from "./components/theme-provider.tsx";
+import { RouterProvider } from "react-router-dom";
+import routes from "./route/route.tsx";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Add your Clerk Publishable Key to the .env file')
-}
-
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={routes} />
     </ThemeProvider>
-    </ClerkProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

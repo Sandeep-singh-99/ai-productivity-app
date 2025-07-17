@@ -2,12 +2,6 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { BrainCircuit } from "lucide-react";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/clerk-react";
 
 export default function NavBar() {
   return (
@@ -27,14 +21,6 @@ export default function NavBar() {
             </Button>
           </Link>
 
-          <div>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
         </div>
       </nav>
     </header>
