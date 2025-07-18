@@ -3,8 +3,11 @@ import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { BrainCircuit } from "lucide-react";
 import AuthComponent from "./AuthComponent";
+import { useAppSelector } from "@/hooks/hooks";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function NavBar() {
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -22,7 +25,18 @@ export default function NavBar() {
             </Button>
           </Link>
 
-          <AuthComponent />
+         {
+          isAuthenticated ? (
+            <div>
+              <Avatar>
+                <AvatarImage src={user?.imageUrl || ""} alt="User Avatar" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+          ) : (
+             <AuthComponent />
+          )
+         }
         </div>
       </nav>
     </header>

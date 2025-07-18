@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
         const profileImage = await UploadImage(imageUrl, "ai-productivity-app");
 
-        const newUser = new User({
+        const newUser = await User.create({
             firstName,
             lastName,
             email,
@@ -31,7 +31,7 @@ export const register = async (req, res) => {
 
         if (newUser) {
             generateToken(newUser._id, res);
-            res.status(200).json({ data: newUser, message: "User registered successfully", success: true });
+            res.status(200).json(newUser, { message: "User registered successfully", success: true });
         } else {
             res.status(401).json({ message: "User registration failed", success: false });
         }
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
         }
 
         generateToken(userExists._id, res);
-        res.status(200).json({ data: userExists, message: "User logged in successfully", success: true });
+        res.status(200).json( userExists, { message: "User logged in successfully", success: true });
     } catch (error) {
         res.status(401).json({ message: error.message, success: false })
     }
@@ -78,7 +78,7 @@ export const logout = async (req, res) => {
 
 export const checkAuth = async (req, res) => {
     try {
-        res.status(200).json({ data: req.user, message: "User is authenticated", success: true });
+        res.status(200).json(req.user, { message: "User is authenticated", success: true });
     } catch (error) {
         res.status(401).json({ message: error.message, success: false })
     }

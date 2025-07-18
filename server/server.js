@@ -4,8 +4,8 @@ dotenv.config();
 import cors from 'cors';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit'
-import helmet from 'helmet';
-import csrf from 'csurf';
+// import helmet from 'helmet';
+// import csrf from 'csurf';
 import cookieParser from 'cookie-parser';
 
 import { ConnectDB } from './config/db.js';
@@ -21,9 +21,12 @@ const limiter = rateLimit({
 })
 
 app.use(limiter);
-app.use(helmet());
-app.use(csrf())
-app.use(cors());
+// app.use(helmet());
+// app.use(csrf())
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan('dev'));

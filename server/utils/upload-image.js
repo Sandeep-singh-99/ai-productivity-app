@@ -1,8 +1,12 @@
 import cloudinary from "./cloudinary.js";
 
 export const UploadImage = async (file, folder) => {
-  const buffer = await file.arrayBuffer();
-  const bytes = Buffer.from(buffer);
+  // const buffer = await file.arrayBuffer();
+  // const bytes = Buffer.from(buffer);
+
+   if (!file || !file.buffer) {
+    throw new Error('No file buffer found');
+  }
 
   return new Promise((resolve, reject) => {
     cloudinary.uploader
@@ -18,6 +22,6 @@ export const UploadImage = async (file, folder) => {
           return resolve(result);
         }
       )
-      .end(bytes);
+      .end(file.buffer);
   });
 };

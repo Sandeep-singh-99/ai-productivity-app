@@ -10,16 +10,38 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { useSignUp } from "@/api/authApi";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setUser } from "@/redux/slice/authSlice";
+
+interface FormData {
+  imageUrl: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 
 export default function AuthComponent() {
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     imageUrl: "",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
+
+  const signUpMutation = useSignUp();
+  const dispatch = useAppDispatch();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -43,8 +65,47 @@ export default function AuthComponent() {
     e.preventDefault();
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!uploadedImage) {
+      console.error("No image uploaded");
+      return;
+    }
+
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.password
+    ) {
+      console.error("All fields are required");
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("image", uploadedImage);
+    formDataToSend.append("firstName", formData.firstName);
+    formDataToSend.append("lastName", formData.lastName);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("password", formData.password);
+
+    try {
+      const result = await signUpMutation.mutateAsync(formDataToSend);
+
+      dispatch(setUser(result));
+
+      setFormData({
+        imageUrl: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      });
+      setUploadedImage(null);
+      console.log("Signup successful:", result);
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -73,7 +134,14 @@ export default function AuthComponent() {
               <form className="space-y-4" onSubmit={handleLoginSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" placeholder="Enter your email.." required />
+                  <Input
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email.."
+                    required
+                  />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password" className="mt-2">
@@ -82,8 +150,11 @@ export default function AuthComponent() {
                   <Input
                     id="password"
                     type="password"
+                    name="password"
                     placeholder="Enter your password.."
                     required
+                    value={formData.password}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <DialogFooter>
@@ -138,6 +209,9 @@ export default function AuthComponent() {
                       id="firstName"
                       placeholder="Enter your FirstName.."
                       required
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="grid gap-2 w-full">
@@ -146,6 +220,9 @@ export default function AuthComponent() {
                       id="lastName"
                       placeholder="Enter your LastName.."
                       required
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -156,6 +233,9 @@ export default function AuthComponent() {
                     type="email"
                     placeholder="Enter your email.."
                     required
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="grid gap-2">
@@ -165,6 +245,9 @@ export default function AuthComponent() {
                     type="password"
                     placeholder="Enter your password.."
                     required
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <DialogFooter>
