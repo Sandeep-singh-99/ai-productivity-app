@@ -39,6 +39,14 @@ export default function AuthComponent() {
     }
   };
 
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  }
+
+  const handleSignupSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -62,10 +70,10 @@ export default function AuthComponent() {
                   Please enter your credentials to log in.
                 </p>
               </div>
-              <form className="space-y-2">
+              <form className="space-y-4" onSubmit={handleLoginSubmit}>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" placeholder="Enter your email.." />
+                  <Input id="email" placeholder="Enter your email.." required />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="password" className="mt-2">
@@ -75,6 +83,7 @@ export default function AuthComponent() {
                     id="password"
                     type="password"
                     placeholder="Enter your password.."
+                    required
                   />
                 </div>
                 <DialogFooter>
@@ -96,7 +105,7 @@ export default function AuthComponent() {
                   Enter your email below to create your account.
                 </p>
               </div>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSignupSubmit}>
                 <div className="flex justify-center">
                   <input
                     type="file"
@@ -126,11 +135,11 @@ export default function AuthComponent() {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="firstName">FirstName</Label>
-                  <Input id="firstName" placeholder="Enter your FirstName.." />
+                  <Input id="firstName" placeholder="Enter your FirstName.." required />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="lastName">LastName</Label>
-                  <Input id="lastName" placeholder="Enter your LastName.." />
+                  <Input id="lastName" placeholder="Enter your LastName.." required />
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -138,6 +147,7 @@ export default function AuthComponent() {
                     id="email"
                     type="email"
                     placeholder="Enter your email.."
+                    required
                   />
                 </div>
                 <div className="grid gap-2">
@@ -146,6 +156,7 @@ export default function AuthComponent() {
                     id="password"
                     type="password"
                     placeholder="Enter your password.."
+                    required
                   />
                 </div>
                 <DialogFooter>
