@@ -41,11 +41,11 @@ export default function AuthComponent() {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  }
+  };
 
   const handleSignupSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <Dialog>
@@ -90,9 +90,7 @@ export default function AuthComponent() {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">
-                    Log In
-                  </Button>
+                  <Button type="submit">Log In</Button>
                 </DialogFooter>
               </form>
             </div>
@@ -133,13 +131,23 @@ export default function AuthComponent() {
                     )}
                   </label>
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="firstName">FirstName</Label>
-                  <Input id="firstName" placeholder="Enter your FirstName.." required />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="lastName">LastName</Label>
-                  <Input id="lastName" placeholder="Enter your LastName.." required />
+                <div className="flex flex-col md:flex-row gap-4">
+                  <div className="grid gap-2 w-full">
+                    <Label htmlFor="firstName">FirstName</Label>
+                    <Input
+                      id="firstName"
+                      placeholder="Enter your FirstName.."
+                      required
+                    />
+                  </div>
+                  <div className="grid gap-2 w-full">
+                    <Label htmlFor="lastName">LastName</Label>
+                    <Input
+                      id="lastName"
+                      placeholder="Enter your LastName.."
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
@@ -163,9 +171,7 @@ export default function AuthComponent() {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">
-                    Sign Up
-                  </Button>
+                  <Button type="submit">Sign Up</Button>
                 </DialogFooter>
               </form>
             </div>
