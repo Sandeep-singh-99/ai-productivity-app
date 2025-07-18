@@ -28,7 +28,7 @@ export const useSignUp = () => {
 };
 
 export const useSignIn = () => {
-  return useMutation({
+  return useMutation<IAuthResponse, Error, FormData>({
     mutationFn: async (formData) => {
       const response = await axios.post(`${API_URL}/login`, formData, {
         headers: {
@@ -44,7 +44,7 @@ export const useSignIn = () => {
 export const useSignOut = () => {
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.get(`${API_URL}/logout`, {
+      const response = await axios.post(`${API_URL}/logout`, {
         withCredentials: true,
       });
       return response.data;
@@ -61,5 +61,10 @@ export const useCheckAuth = () => {
       });
       return response.data;
     },
+    staleTime: 0,
+    gcTime: 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };

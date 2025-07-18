@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.route("/signUp").post(upload.single("image"), register)
 router.route("/login").post(login)
-router.route("/logout").post(authMiddleware, logout)
+router.route("/logout").post(logout)
 router.route("/checkAuth").get(authMiddleware, checkAuth)
 
 export default router

@@ -10,9 +10,10 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { useSignUp } from "@/api/authApi";
+import { useSignIn, useSignUp } from "@/api/authApi";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setUser } from "@/redux/slice/authSlice";
+import { toast } from "react-toastify";
 
 interface FormData {
   imageUrl: string;
@@ -23,6 +24,8 @@ interface FormData {
 }
 
 export default function AuthComponent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     imageUrl: "",
@@ -33,6 +36,7 @@ export default function AuthComponent() {
   });
 
   const signUpMutation = useSignUp();
+  const loginMutation = useSignIn();
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,14 +65,29 @@ export default function AuthComponent() {
     }
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email || !password) {
+      toast.error("Email and password are required");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("password", password);
+
+    try {
+      const result = await loginMutation.mutateAsync(formData);
+      dispatch(setUser(result));
+    } catch (error) {
+      console.log("Login failed:", error);
+    }
   };
 
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!uploadedImage) {
-      console.error("No image uploaded");
+      toast.error("No image uploaded");
       return;
     }
 
@@ -78,7 +97,7 @@ export default function AuthComponent() {
       !formData.email ||
       !formData.password
     ) {
-      console.error("All fields are required");
+      toast.error("All fields are required");
       return;
     }
 
@@ -137,8 +156,8 @@ export default function AuthComponent() {
                   <Input
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email.."
                     required
                   />
@@ -153,8 +172,8 @@ export default function AuthComponent() {
                     name="password"
                     placeholder="Enter your password.."
                     required
-                    value={formData.password}
-                    onChange={handleInputChange}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <DialogFooter>

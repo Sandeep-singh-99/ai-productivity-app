@@ -1,13 +1,37 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { LayoutDashboard } from "lucide-react";
+import { CircleUser, LayoutDashboard, LogOut } from "lucide-react";
 import { BrainCircuit } from "lucide-react";
 import AuthComponent from "./AuthComponent";
-import { useAppSelector } from "@/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useSignOut } from "@/api/authApi";
+import { logout } from "@/redux/slice/authSlice";
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function NavBar() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const LogoutMutation = useSignOut();
+   const queryClient = useQueryClient();
+
+  const handleLogout = async () => {
+    try {
+      await LogoutMutation.mutateAsync();
+      dispatch(logout());
+      queryClient.clear();
+      queryClient.removeQueries({ queryKey: ["user"] });
+    } catch (error) {
+      console.log("Logout failed:", error);
+    }
+  };
   return (
     <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -25,18 +49,28 @@ export default function NavBar() {
             </Button>
           </Link>
 
-         {
-          isAuthenticated ? (
-            <div>
-              <Avatar>
-                <AvatarImage src={user?.imageUrl || ""} alt="User Avatar" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar>
+                  <AvatarImage src={user?.imageUrl || ""} alt="User Avatar" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="mt-1" align="center">
+                <DropdownMenuItem>
+                  <CircleUser className="mr-2 h-4 w-4" />
+                  <Link to={"/home/profile"}>My Account</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-             <AuthComponent />
-          )
-         }
+            <AuthComponent />
+          )}
         </div>
       </nav>
     </header>
