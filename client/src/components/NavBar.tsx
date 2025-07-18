@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { BrainCircuit } from "lucide-react";
+import AuthComponent from "./AuthComponent";
 
 export default function NavBar() {
   return (
@@ -21,6 +22,7 @@ export default function NavBar() {
             </Button>
           </Link>
 
+          <AuthComponent />
         </div>
       </nav>
     </header>

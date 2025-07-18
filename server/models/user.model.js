@@ -29,6 +29,7 @@ const userSchema = new Schema({
     imageUrl: {
         type: String,
         unique: true,
+        required: true,
         default: "https://www.pexels.com/photo/man-wearing-blue-crew-neck-t-shirt-2379005/"
     },
 
