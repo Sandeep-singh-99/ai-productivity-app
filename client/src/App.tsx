@@ -8,15 +8,17 @@ import { setUser } from "./redux/slice/authSlice";
 
 export default function App() {
   const dispatch = useAppDispatch();
-  const { data: user } = useCheckAuth();
+  const { data: user, isError } = useCheckAuth();
 
   useEffect(() => {
+    if (user) {
       dispatch(setUser(user));
+    }
 
-      return () => {
-        dispatch(setUser(null));
-      };
-  }, [user, dispatch]);
+    if (isError) {
+      dispatch(setUser(null));
+    }
+  }, [user, dispatch, isError]);
   return (
     <div>
       <ToastContainer />
