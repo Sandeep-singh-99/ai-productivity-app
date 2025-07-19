@@ -15,6 +15,8 @@ import {
 import { useSignOut } from "@/api/authApi";
 import { logout } from "@/redux/slice/authSlice";
 import { useQueryClient } from '@tanstack/react-query';
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 export default function NavBar() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
@@ -24,12 +26,17 @@ export default function NavBar() {
 
   const handleLogout = async () => {
     try {
-      await LogoutMutation.mutateAsync();
+      const result = await LogoutMutation.mutateAsync();
       dispatch(logout());
       queryClient.clear();
       queryClient.removeQueries({ queryKey: ["user"] });
-    } catch (error) {
-      console.log("Logout failed:", error);
+      toast.success(result.message || "Logout successful");
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data?.message || "Logout failed");
+      } else {
+        toast.error("Logout failed");
+      }
     }
   };
   return (

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:5000/api/v1",
@@ -37,11 +38,22 @@ axiosClient.interceptors.response.use(
       error.response?.data?.message?.includes("invalid csrf token") &&
       !originalRequest._retry
     ) {
+      toast.warn("Session expired. Retrying...");
       originalRequest._retry = true;
-      const csrfToken = await fetchCsrfToken();
+      try {
+        const csrfToken = await fetchCsrfToken();
       originalRequest.headers["X-CSRF-Token"] = csrfToken;
 
-      return axiosClient(originalRequest);
+      return axiosClient(originalRequest); 
+      } catch (error) {
+        toast.error("Retry failed. Please refresh the page.");
+        return Promise.reject(error);
+      }
+    }
+
+     // Optional: show other server-side errors
+    if (error.response?.status === 500) {
+      toast.error("Server error occurred.");
     }
 
     return Promise.reject(error);

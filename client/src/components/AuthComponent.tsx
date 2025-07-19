@@ -14,6 +14,7 @@ import { useSignIn, useSignUp } from "@/api/authApi";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setUser } from "@/redux/slice/authSlice";
 import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 interface FormData {
   imageUrl: string;
@@ -79,8 +80,14 @@ export default function AuthComponent() {
     try {
       const result = await loginMutation.mutateAsync(formData);
       dispatch(setUser(result));
-    } catch (error) {
+      toast.success(result.message || "Login successful");
+    } catch (error: unknown) {
       console.log("Login failed:", error);
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data?.message || "Login failed");
+      } else {
+        toast.error("Login failed");
+      }
     }
   };
 
@@ -113,6 +120,8 @@ export default function AuthComponent() {
 
       dispatch(setUser(result));
 
+      toast.success(result.message || "Signup successful");
+
       setFormData({
         imageUrl: "",
         firstName: "",
@@ -122,8 +131,13 @@ export default function AuthComponent() {
       });
       setUploadedImage(null);
       console.log("Signup successful:", result);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Signup error:", error);
+      if (error instanceof AxiosError) {
+        toast.error(error?.response?.data?.message || "Signup failed");
+      } else {
+        toast.error("Signup failed");
+      }
     }
   };
 
