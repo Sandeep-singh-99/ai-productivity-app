@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { CircleUser, LayoutDashboard, LogOut } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings } from "lucide-react";
 import { BrainCircuit } from "lucide-react";
 import AuthComponent from "./AuthComponent";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
@@ -17,6 +17,7 @@ import { logout } from "@/redux/slice/authSlice";
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import ProfileDialogComponents from "./ProfileComponents/ProfileDialogComponents";
 
 export default function NavBar() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
@@ -64,11 +65,10 @@ export default function NavBar() {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="mt-1" align="center">
-                <DropdownMenuItem>
-                  <CircleUser className="mr-2 h-4 w-4" />
-                  <Link to={"/home/profile"}>My Account</Link>
-                </DropdownMenuItem>
+              <DropdownMenuContent className="mt-1" align="end">
+               <DropdownMenuItem asChild>
+                 <ProfileDialogComponents triggerButton={<Button variant="ghost"> <Settings className="h-4 w-4 mr-2" /> My Account</Button>} />
+               </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>
