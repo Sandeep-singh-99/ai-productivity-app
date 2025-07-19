@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useQuery, useMutation } from "@tanstack/react-query";
 
-const API_URL = "http://localhost:5000/api/v1/user";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import axiosClient from "@/lib/axiosClient";
+
 
 interface IAuthResponse {
   id: string;
@@ -16,11 +16,10 @@ interface IAuthResponse {
 export const useSignUp = () => {
   return useMutation<IAuthResponse, Error, FormData>({
     mutationFn: async (formData: FormData) => {
-      const response = await axios.post(`${API_URL}/signUp`, formData, {
+      const response = await axiosClient.post(`/user/signUp`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        withCredentials: true,
       });
       return response.data;
     },
@@ -30,11 +29,10 @@ export const useSignUp = () => {
 export const useSignIn = () => {
   return useMutation<IAuthResponse, Error, FormData>({
     mutationFn: async (formData) => {
-      const response = await axios.post(`${API_URL}/login`, formData, {
+      const response = await axiosClient.post("/user/login", formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
       });
       return response.data;
     },
@@ -44,7 +42,7 @@ export const useSignIn = () => {
 export const useSignOut = () => {
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.post(`${API_URL}/logout`, {}, {
+      const response = await axiosClient.post("/user/logout", {}, {
         withCredentials: true,
       });
       return response.data;
@@ -56,11 +54,10 @@ export const useCheckAuth = () => {
   return useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const response = await axios.get(`${API_URL}/checkAuth`, {
+      const response = await axiosClient.get("/user/checkAuth", {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true,
       });
       return response.data;
     },
