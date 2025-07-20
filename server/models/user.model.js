@@ -36,6 +36,11 @@ const userSchema = new Schema({
     imageUrlId: {
         type: String,
         unique: true,
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user',
     }
 },{ timestamps: true });
 

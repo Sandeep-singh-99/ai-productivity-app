@@ -4,7 +4,7 @@ import { UploadImage } from "../utils/upload-image.js";
 
 export const register = async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, role } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -29,6 +29,7 @@ export const register = async (req, res) => {
       lastName,
       email,
       password,
+      role,
       imageUrl: profileImage.secure_url,
       imageUrlId: profileImage.public_id,
     });
