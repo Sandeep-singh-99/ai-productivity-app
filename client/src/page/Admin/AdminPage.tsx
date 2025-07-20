@@ -1,12 +1,12 @@
-import SideBar from '@/components/SideBar'
-import { Outlet } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
+import LeftSideBar from "@/components/Admin/LeftSideBar";
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-export default function Home() {
+export default function AdminPage() {
   return (
     <div className="min-h-screen w-full">
       <div className="flex">
-        <SideBar />
+        <LeftSideBar />
         <div className="flex-1">
           <ToastContainer
             position="bottom-right"
@@ -24,5 +24,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }

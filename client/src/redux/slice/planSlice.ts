@@ -7,8 +7,6 @@ interface Plan {
     planName: string;
     price: number;
     content: string[];
-    message: string;
-    success: boolean;
     createdAt: string;
 }
 
@@ -36,8 +34,8 @@ const planSlice = createSlice({
         setError: (state, action: PayloadAction<boolean>) => {
             state.isError = action.payload;
         },
-        setPlans: (state, action: PayloadAction<Plan[]>) => {
-            state.plans = action.payload;
+        setPlans: (state, action: PayloadAction<Plan>) => {
+            state.plans = [action.payload];
         },
         resetPlanState: () => initialState,
     }

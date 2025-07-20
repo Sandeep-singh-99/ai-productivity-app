@@ -17,7 +17,7 @@ export const createPayment = async (req, res) => {
 
         res.status(201).json({ message: "Payment plan created successfully", data: newPaymentPlan, success: true });
     } catch (error) {
-        res.status(500).json({ message: "Error creating payment plan", error: error.message, success: false });
+        res.status(401).json({ message: error.message, success: false });
     }
 }
 
@@ -26,7 +26,7 @@ export const getPaymentPlans = async (req, res) => {
         const paymentPlans = await CreatePayment.find();
         res.status(200).json({ message: "Payment plans fetched successfully", data: paymentPlans, success: true });
     } catch (error) {
-        res.status(500).json({ message: "Error fetching payment plans", error: error.message, success: false });
+        res.status(401).json({ message: error.message, success: false });
     }
 }
 

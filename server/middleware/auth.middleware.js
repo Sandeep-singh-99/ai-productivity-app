@@ -3,7 +3,8 @@ import User from '../models/user.model.js';
 
 export const authMiddleware = async (req, res, next) => {
     try {
-        const token = req.cookies.token     
+        const token = req.cookies.token
+             
 
         if(!token) {
             return res.status(401).json({ message: "Unauthorized" });
@@ -24,6 +25,6 @@ export const authMiddleware = async (req, res, next) => {
         next();
     } catch (error) {
         console.error("Auth middleware error: ", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: error.message || "Internal Server Error" });
     }
 }
