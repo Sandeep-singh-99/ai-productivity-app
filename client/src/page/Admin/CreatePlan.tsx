@@ -1,5 +1,6 @@
 import { useGetPlans } from "@/api/planApi";
 import CreatePlanForm from "@/components/Admin/CreatePlanForm";
+import PaymentCardComponents from "@/components/Admin/PaymenCardComponents";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { setPlans } from "@/redux/slice/planSlice";
 import { useEffect } from "react";
@@ -24,16 +25,18 @@ export default function CreatePlan() {
           <CreatePlanForm />
       </div>
 
-      {
+      <div>
+       {
         plans && plans.length > 0 ? (
-          <ul>
-            {plans.map((plan) => (
-              <li key={plan.id}>{plan.planName}</li>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {plans.map((plan, index) => (
+              <PaymentCardComponents key={index} plan={plan} />
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No plans available</p>
         )}
+      </div>
     </div>
   )
 }

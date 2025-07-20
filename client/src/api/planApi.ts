@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/lib/axiosClient";
 import { AxiosError } from "axios";
 
@@ -24,6 +24,8 @@ interface IErrorResponse {
 }
 
 export const useCreatePlan = () => {
+  const queryClient = useQueryClient();
+
   return useMutation<IPlanResponse, AxiosError<IErrorResponse>, FormData>({
     mutationFn: async (formData: FormData) => {
       const response = await axiosClient.post(
@@ -37,6 +39,9 @@ export const useCreatePlan = () => {
         }
       );
       return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["plans"] }); // 🔁 Auto re-fetch
     },
   });
 };
