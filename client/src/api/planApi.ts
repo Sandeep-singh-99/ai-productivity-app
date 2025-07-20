@@ -2,16 +2,6 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import axiosClient from "@/lib/axiosClient";
 import { AxiosError } from "axios";
 
-// interface IPlanResponse {
-//   message?: string;
-//   success?: boolean;
-//   id: string;
-//   planName: string;
-//   price: number;
-//   content: string[];
-//   createdAt: string;
-// }[]
-
 interface IPlanResponse {
   message: string;
   success: boolean;
@@ -20,6 +10,12 @@ interface IPlanResponse {
   price: number;
   content: string[];
   createdAt: string;
+}
+
+interface GetPlansResponse {
+  message: string;
+  success: boolean;
+  data: IPlanResponse[];
 }
 
 interface IErrorResponse {
@@ -35,7 +31,7 @@ export const useCreatePlan = () => {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
           withCredentials: true,
         }
@@ -46,7 +42,7 @@ export const useCreatePlan = () => {
 };
 
 export const useGetPlans = () => {
-  return useQuery<IPlanResponse[]>({
+  return useQuery<GetPlansResponse>({
     queryKey: ["plans"],
     queryFn: async () => {
       const response = await axiosClient.get("/plan/get-payment-plans", {

@@ -34,8 +34,8 @@ const planSlice = createSlice({
         setError: (state, action: PayloadAction<boolean>) => {
             state.isError = action.payload;
         },
-        setPlans: (state, action: PayloadAction<Plan>) => {
-            state.plans = [action.payload];
+        setPlans: (state, action: PayloadAction<Plan[]>) => {
+            state.plans = action.payload;
         },
         resetPlanState: () => initialState,
     }
