@@ -9,6 +9,9 @@ interface User {
     password: string,
     imageUrl: string | null,
     imageUrlId: string | null,
+    message?: string,
+    success?: boolean,
+    role?: string, 
 }
 
 interface AuthState {

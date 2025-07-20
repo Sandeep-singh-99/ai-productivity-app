@@ -11,6 +11,7 @@ import RBackground from "@/page/RBackground";
 import RObject from "@/page/RObject";
 import ResumePage from "@/page/ResumePage";
 import CommunityPage from "@/page/CommunityPage";
+import AdminPage from "@/page/AdminPage";
 
 const routes = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const routes = createBrowserRouter([
         element: <AppHome />,
       },
     ],
+  },
+  {
+    path: "ai-prod-app/v1/admin-route",
+    element: <AdminPage />,
   },
   {
     path: "home",

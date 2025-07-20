@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSignOut } from "@/api/authApi";
 import { logout } from "@/redux/slice/authSlice";
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import ProfileDialogComponents from "./ProfileComponents/ProfileDialogComponents";
@@ -23,7 +23,7 @@ export default function NavBar() {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const LogoutMutation = useSignOut();
-   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const handleLogout = async () => {
     try {
@@ -66,9 +66,24 @@ export default function NavBar() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="mt-1" align="end">
-               <DropdownMenuItem asChild>
-                 <ProfileDialogComponents triggerButton={<Button variant="ghost"> <Settings className="h-4 w-4 mr-2" /> My Account</Button>} />
-               </DropdownMenuItem>
+                {user?.role === "admin" ? (
+                  <Link to={"/ai-prod-app/v1/admin-route"}>
+                    <DropdownMenuItem>
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Admin Dashboard</span>
+                    </DropdownMenuItem>
+                  </Link>
+                ) : (
+                  <DropdownMenuItem asChild>
+                    <ProfileDialogComponents
+                      triggerButton={
+                        <Button variant="ghost">
+                          <Settings className="h-4 w-4 mr-2" /> My Account
+                        </Button>
+                      }
+                    />
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Logout</span>

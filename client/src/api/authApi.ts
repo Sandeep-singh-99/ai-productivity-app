@@ -13,6 +13,7 @@ interface IAuthResponse {
   password: string;
   message?: string;
   success?: boolean;
+  role?: string;
 }
 
 export const useSignUp = () => {
