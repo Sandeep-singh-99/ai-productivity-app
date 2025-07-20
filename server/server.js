@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser';
 
 import { ConnectDB } from './config/db.js';
 import userRoutes from './routes/user.router.js'
+import createPaymentPlanRoutes from './routes/createPayment.route.js';
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.get("/api/v1/csrf-token", (req, res) => {
 
 
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/plan', createPaymentPlanRoutes);
 
 app.use((err, req, res, next) => {
   if (err.code === "EBADCSRFTOKEN") {
