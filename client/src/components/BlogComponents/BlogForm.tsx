@@ -13,8 +13,51 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAppDispatch } from "@/hooks/hooks";
+import { useGenerateBlog } from "@/api/aiApi";
+import { useState } from "react";
+import { AxiosError } from "axios";
+import { setBlog, setLoading } from "@/redux/slice/blogSlice";
+import { toast } from "react-toastify";
 
 export default function BlogForm() {
+  const [formData, setFormData] = useState({
+    question: "",
+    category: "",
+  });
+
+  const blogMutation = useGenerateBlog();
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(setLoading(true));
+
+    if (!formData.question || !formData.category) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("question", formData.question);
+    formDataToSend.append("category", formData.category);
+    try {
+      const result = await blogMutation.mutateAsync({
+        question: formData.question,
+        category: formData.category,
+      });
+      dispatch(setBlog(result));
+
+      dispatch(setLoading(false));
+      toast.success(result.message || "Blog generated successfully!!!!");
+    } catch (error: unknown) {
+      dispatch(setLoading(false));
+      if (error instanceof AxiosError) {
+       toast.error(error.response?.data.message || "An error occurred while generating the blog.");
+      }
+    }
+  };
+
   return (
     <Card className="w-full h-full">
       <CardHeader className="flex items-center space-x-2">
@@ -23,37 +66,49 @@ export default function BlogForm() {
       </CardHeader>
 
       <CardContent>
-        <div className="space-y-4 mb-5">
-          <Label className="font-semibold">Blog Topic</Label>
-          <Textarea placeholder="The future of artificial intelligence is..." />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-4 mb-5">
+            <Label className="font-semibold">Blog Topic</Label>
+            <Textarea
+              placeholder="The future of artificial intelligence is..."
+              value={formData.question}
+              onChange={(e) =>
+                setFormData({ ...formData, question: e.target.value })
+              }
+            />
+          </div>
 
-        <div className="space-y-4">
-          <Label className="font-semibold text-lg">Category</Label>
-          <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Categories</SelectLabel>
-                <SelectItem value="technology">Technology</SelectItem>
-                <SelectItem value="health">Health</SelectItem>
-                <SelectItem value="lifestyle">Lifestyle</SelectItem>
-                <SelectItem value="finance">Finance</SelectItem>
-                <SelectItem value="travel">Travel</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="space-y-4">
+            <Label className="font-semibold text-lg">Category</Label>
+            <Select
+              value={formData.category}
+              onValueChange={(value) =>
+                setFormData({ ...formData, category: value })
+              }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Categories</SelectLabel>
+                  <SelectItem value="technology">Technology</SelectItem>
+                  <SelectItem value="health">Health</SelectItem>
+                  <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                  <SelectItem value="finance">Finance</SelectItem>
+                  <SelectItem value="travel">Travel</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <CardFooter>
+            <Button className="" variant={"outline"}>
+              <SquarePen className="h-4 w-4 mr-2" />
+              Generate Blog
+            </Button>
+          </CardFooter>
+        </form>
       </CardContent>
-
-      <CardFooter>
-        <Button className="" variant={"outline"}>
-          <SquarePen className="h-4 w-4 mr-2" />
-          Generate Blog
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
