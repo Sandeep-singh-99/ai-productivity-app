@@ -102,7 +102,7 @@ export default function BlogForm() {
             </Select>
           </div>
           <CardFooter>
-            <Button className="" variant={"outline"}>
+            <Button className="w-full" variant={"outline"}>
               <SquarePen className="h-4 w-4 mr-2" />
               Generate Blog
             </Button>
