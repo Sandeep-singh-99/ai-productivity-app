@@ -7,9 +7,9 @@ import {
   Home,
   Image,
   LayoutDashboard,
+  MessageSquareText,
   Scissors,
   ScrollText,
-  UsersRound,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -136,14 +136,14 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link>
 
         {/* Community Link */}
-        <Link to={"/home/community"}>
+        <Link to={"/home/feedback-form"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
             onClick={closeSheet}
           >
-            <UsersRound className="mr-2 h-4 w-4" />
-            Community
+            <MessageSquareText className="mr-2 h-4 w-4" />
+            Feedback form
           </Button>
         </Link>
       </nav>

@@ -10,10 +10,10 @@ import GImagePage from "@/page/GImagePage";
 import RBackground from "@/page/RBackground";
 import RObject from "@/page/RObject";
 import ResumePage from "@/page/ResumePage";
-import CommunityPage from "@/page/CommunityPage";
 import AdminPage from "@/page/Admin/AdminPage";
 import AdminDashboard from "@/page/Admin/AdminDashboard";
 import CreatePlan from "@/page/Admin/CreatePlan";
+import FeedbackForm from "@/page/FeedbackForm";
 
 const routes = createBrowserRouter([
   {
@@ -73,8 +73,8 @@ const routes = createBrowserRouter([
         element: <ResumePage />
       },
       {
-        path: "community",
-        element: <CommunityPage />
+        path: "feedback-form",
+        element: <FeedbackForm />
       }
     ],
   },
