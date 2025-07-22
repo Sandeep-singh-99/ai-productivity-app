@@ -13,7 +13,6 @@ import ResumePage from "@/page/ResumePage";
 import AdminPage from "@/page/Admin/AdminPage";
 import AdminDashboard from "@/page/Admin/AdminDashboard";
 import CreatePlan from "@/page/Admin/CreatePlan";
-import FeedbackForm from "@/page/FeedbackForm";
 
 const routes = createBrowserRouter([
   {
@@ -72,10 +71,6 @@ const routes = createBrowserRouter([
         path: "resume",
         element: <ResumePage />
       },
-      {
-        path: "feedback-form",
-        element: <FeedbackForm />
-      }
     ],
   },
 ]);

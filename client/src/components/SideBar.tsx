@@ -7,13 +7,13 @@ import {
   Home,
   Image,
   LayoutDashboard,
-  MessageSquareText,
   Scissors,
   ScrollText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
+import FeedbackFormComponents from "./FeedbackFormComponents";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -136,7 +136,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link>
 
         {/* Community Link */}
-        <Link to={"/home/feedback-form"}>
+        {/* <Link to={"/home/feedback-form"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -145,7 +145,8 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <MessageSquareText className="mr-2 h-4 w-4" />
             Feedback form
           </Button>
-        </Link>
+        </Link> */}
+        <FeedbackFormComponents />
       </nav>
     </div>
   );
