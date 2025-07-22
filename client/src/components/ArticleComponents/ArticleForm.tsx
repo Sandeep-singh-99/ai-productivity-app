@@ -12,8 +12,8 @@ export default function ArticleForm() {
             <Sparkles className="h-4 w-4 mr-2" size={52} />
             <h2 className="text-lg font-semibold">Article Configuration</h2>
         </CardHeader>
-
-        <CardContent>
+        <form>
+        <CardContent className="mb-5">
            <div className="space-y-4">
              <Label className="font-semibold">Article Topic</Label>
             <Textarea placeholder="The future of artificial intelligence is..."/>
@@ -26,6 +26,7 @@ export default function ArticleForm() {
                 Generate Article
             </Button>
         </CardFooter>
+        </form>
     </Card>
   )
 }

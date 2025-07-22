@@ -36,3 +36,31 @@ export const useGenerateBlog = () => {
         },
     });
 };
+
+
+interface IArticleResponse {
+    id?: string;
+    question: string;
+    createdAt?: string;
+    message?: string;
+    success?: boolean;
+}
+
+export const useGenerateArticle = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation<IArticleResponse, AxiosError<IErrorResponse>, { question: string }>({
+        mutationFn: async ({ question }) => {
+            const response = await axiosClient.post("/ai/article-generate", { question }, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            });
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["articles"] });
+        },
+    });
+}
