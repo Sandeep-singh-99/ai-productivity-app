@@ -16,7 +16,7 @@ export default function ArticleForm() {
         <CardContent className="mb-5">
            <div className="space-y-4">
              <Label className="font-semibold">Article Topic</Label>
-            <Textarea placeholder="The future of artificial intelligence is..."/>
+            <Textarea rows={5} placeholder="The future of artificial intelligence is..."/>
            </div>
         </CardContent>
 

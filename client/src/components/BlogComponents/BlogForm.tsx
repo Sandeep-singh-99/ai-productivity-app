@@ -34,7 +34,8 @@ export default function BlogForm() {
     dispatch(setLoading(true));
 
     if (!formData.question || !formData.category) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
+      dispatch(setLoading(false));
       return;
     }
 
@@ -53,7 +54,10 @@ export default function BlogForm() {
     } catch (error: unknown) {
       dispatch(setLoading(false));
       if (error instanceof AxiosError) {
-       toast.error(error.response?.data.message || "An error occurred while generating the blog.");
+        toast.error(
+          error.response?.data.message ||
+            "An error occurred while generating the blog."
+        );
       }
     }
   };
@@ -64,13 +68,13 @@ export default function BlogForm() {
         <Sparkles className="h-4 w-4 mr-2" size={52} />
         <h2 className="text-lg font-semibold">Blog Configuration</h2>
       </CardHeader>
-
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent>
           <div className="space-y-4 mb-5">
             <Label className="font-semibold">Blog Topic</Label>
             <Textarea
               placeholder="The future of artificial intelligence is..."
+              rows={5}
               value={formData.question}
               onChange={(e) =>
                 setFormData({ ...formData, question: e.target.value })
@@ -101,14 +105,14 @@ export default function BlogForm() {
               </SelectContent>
             </Select>
           </div>
-          <CardFooter>
-            <Button className="w-full" variant={"outline"}>
-              <SquarePen className="h-4 w-4 mr-2" />
-              Generate Blog
-            </Button>
-          </CardFooter>
-        </form>
-      </CardContent>
+        </CardContent>
+        <CardFooter>
+          <Button variant={"outline"}>
+            <SquarePen className="h-4 w-4 mr-2" />
+            Generate Blog
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
