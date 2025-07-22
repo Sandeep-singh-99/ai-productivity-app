@@ -13,6 +13,7 @@ import ResumePage from "@/page/ResumePage";
 import AdminPage from "@/page/Admin/AdminPage";
 import AdminDashboard from "@/page/Admin/AdminDashboard";
 import CreatePlan from "@/page/Admin/CreatePlan";
+import FeedBackFormPage from "@/page/Admin/FeedBackFormPage";
 
 const routes = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const routes = createBrowserRouter([
       {
         path: "create-plan",
         element: <CreatePlan />
+      },
+      {
+        path: "feedback-form",
+        element: <FeedBackFormPage />
       }
     ]
   },

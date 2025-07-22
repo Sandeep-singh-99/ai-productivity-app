@@ -4,6 +4,7 @@ import {
   Currency,
   Home,
   LayoutDashboard,
+  MessageSquareText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
@@ -66,6 +67,16 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
           >
             <Currency className="mr-2 h-4 w-4" />
             Create Plan
+          </Button>
+        </Link>
+        <Link to={"/ai-prod-app/v1/admin-route/feedback-form"}>
+          <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={closeSheet}
+          >
+            <MessageSquareText className="mr-2 h-4 w-4" />
+            Feedback Form
           </Button>
         </Link>
       </nav>

@@ -1,15 +1,29 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/lib/axiosClient";
 import { AxiosError } from "axios";
 
 
-interface IFeedbackResponse {
-    id?: string,
+interface IUser {
+    _id?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    imageUrl?: string;
+}
+
+interface IFeedback {
+    _id?: string;
     feedback: string;
-    userId?: string;
+    userId?: string | IUser;
     createdAt?: string;
-    success?: boolean;
     message?: string;
+    success?: boolean;
+}
+
+interface IFeedbackResponse {
+    data: IFeedback[];
+    success: boolean;
+    message: string;
 }
 
 interface IErrorResponse {
@@ -20,7 +34,7 @@ interface IErrorResponse {
 export const useSubmitFeedback = () => {
     const queryClient = useQueryClient();
 
-    return useMutation<IFeedbackResponse, AxiosError<IErrorResponse>, { feedback: string }>({
+    return useMutation<IFeedback, AxiosError<IErrorResponse>, { feedback: string }>({
         mutationFn: async ({ feedback }) => {
             const response = await axiosClient.post("/feedback/create-feedback-form", { feedback }, {
                 headers: {
@@ -33,5 +47,18 @@ export const useSubmitFeedback = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["feedback"] });
         },
+    });
+}
+
+export const useGetFeedback = () => {
+    return useQuery<IFeedbackResponse, AxiosError<IErrorResponse>>({
+        queryKey: ["feedback"],
+        queryFn: async () => {
+            const response = await axiosClient.get("/feedback/get-feedback-forms", {
+                withCredentials: true,
+            });
+            return response.data;
+        },
+        refetchOnWindowFocus: false,
     });
 }
