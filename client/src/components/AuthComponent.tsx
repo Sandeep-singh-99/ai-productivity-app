@@ -27,6 +27,7 @@ interface FormData {
 export default function AuthComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     imageUrl: "",
@@ -70,8 +71,10 @@ export default function AuthComponent() {
     e.preventDefault();
     if (!email || !password) {
       toast.error("Email and password are required");
+      setLoading(false);
       return;
     }
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -80,9 +83,11 @@ export default function AuthComponent() {
     try {
       const result = await loginMutation.mutateAsync(formData);
       dispatch(setUser(result));
+      setLoading(false);
       toast.success(result.message || "Login successful");
     } catch (error: unknown) {
       console.log("Login failed:", error);
+      setLoading(false);
       if (error instanceof AxiosError) {
         toast.error(error?.response?.data?.message || "Login failed");
       } else {
@@ -95,6 +100,7 @@ export default function AuthComponent() {
     e.preventDefault();
     if (!uploadedImage) {
       toast.error("No image uploaded");
+      setLoading(false);
       return;
     }
 
@@ -105,8 +111,11 @@ export default function AuthComponent() {
       !formData.password
     ) {
       toast.error("All fields are required");
+      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     const formDataToSend = new FormData();
     formDataToSend.append("image", uploadedImage);
@@ -129,10 +138,12 @@ export default function AuthComponent() {
         email: "",
         password: "",
       });
+      setLoading(false);
       setUploadedImage(null);
       console.log("Signup successful:", result);
     } catch (error: unknown) {
       console.error("Signup error:", error);
+      setLoading(false);
       if (error instanceof AxiosError) {
         toast.error(error?.response?.data?.message || "Signup failed");
       } else {
@@ -194,7 +205,9 @@ export default function AuthComponent() {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">Log In</Button>
+                  <Button type="submit" disabled={loading}>
+                    {loading ? "Logging In..." : "Log In"}
+                  </Button>
                 </DialogFooter>
               </form>
             </div>
@@ -287,7 +300,9 @@ export default function AuthComponent() {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">Sign Up</Button>
+                  <Button type="submit" disabled={loading}>
+                    {loading ? "Signing Up..." : "Sign Up"}
+                  </Button>
                 </DialogFooter>
               </form>
             </div>

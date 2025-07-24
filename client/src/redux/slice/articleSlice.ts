@@ -5,20 +5,19 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 interface articleState {
   id?: string;
   question: string;
-  category: string;
   createdAt?: string;
   message?: string;    
   success?: boolean;
   data?: string;
 }
 
-interface IBlogResponse {
+interface IArticleResponse {
     isLoading: boolean;
     isError: boolean;
     article: articleState | null;
 }
 
-const initialState: IBlogResponse = {
+const initialState: IArticleResponse = {
     isLoading: false,
     isError: false,
     article: null

@@ -9,9 +9,23 @@ import img6 from "../assets/netflix.svg";
 import img7 from "../assets/react.svg";
 import img8 from "../assets/slack.svg";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "@/hooks/hooks";
+import { toast } from "react-toastify";
 
 export default function HeroSection() {
   const logos = [img1, img2, img3, img4, img5, img6, img7, img8];
+
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
+  const handleClick = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      toast.error("Please log in to access this feature.");
+      return;
+    }
+  };
 
   return (
     <div className="w-full mx-auto min-h-screen px-4">
@@ -30,10 +44,10 @@ export default function HeroSection() {
           </p>
 
           <div className="flex  justify-center gap-4">
-            <Link to={"/home/dashboard"}>
-             <Button size={"lg"} variant={"default"} className="font-semibold">
-              Start Creating Now
-            </Button>
+            <Link to={"/home/dashboard"} onClick={handleClick}>
+              <Button size={"lg"} variant={"default"} className="font-semibold">
+                Start Creating Now
+              </Button>
             </Link>
             <Button variant={"outline"} size={"lg"} className="font-semibold">
               Watch Demo
