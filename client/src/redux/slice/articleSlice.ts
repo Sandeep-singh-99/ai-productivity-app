@@ -23,6 +23,7 @@ const initialState: IArticleResponse = {
     article: null
 }
 
+
 const articleSlice = createSlice({
     name: "article",
     initialState,
