@@ -26,7 +26,7 @@ export default function ResumeForm() {
 
     dispatch(setLoading(true));
     const formData = new FormData();
-    formData.append("resume", analysis);
+    formData.append("file", analysis);
 
     try {
       const response = await resumeMutation.mutateAsync(formData);

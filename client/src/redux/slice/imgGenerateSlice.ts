@@ -12,13 +12,13 @@ interface imgGenerateState {
   data?: string;
 }
 
-interface IArticleResponse {
+interface IImgGenerateResponse {
     isLoading: boolean;
     isError: boolean;
     imgGenerate: imgGenerateState | null;
 }
 
-const initialState: IArticleResponse = {
+const initialState: IImgGenerateResponse = {
     isLoading: false,
     isError: false,
     imgGenerate: null

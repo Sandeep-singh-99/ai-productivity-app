@@ -11,13 +11,13 @@ interface resumeState {
   data?: string;
 }
 
-interface IArticleResponse {
+interface IResumeResponse {
     isLoading: boolean;
     isError: boolean;
     resume: resumeState | null;
 }
 
-const initialState: IArticleResponse = {
+const initialState: IResumeResponse = {
     isLoading: false,
     isError: false,
     resume: null
