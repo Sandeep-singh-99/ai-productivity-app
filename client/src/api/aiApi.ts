@@ -64,3 +64,60 @@ export const useGenerateArticle = () => {
         },
     });
 }
+
+interface IImageGenerateResponse {
+    id?: string;
+    context: string;
+    style: string;
+    message?: string;
+    success?: boolean;
+    createdAt?: string;
+}
+
+export const useGenerateImage = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation<IImageGenerateResponse, AxiosError<IErrorResponse>, { context: string; style: string }>({
+        mutationFn: async ({ context, style }) => {
+            const response = await axiosClient.post("/ai/image-generate", { context, style }, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            });
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["images"] });
+        },
+    });
+};
+
+
+interface IResumeAnalysisResponse {
+    id?: string;
+    analysis: File | null;
+    message?: string;
+    success?: boolean;
+    createdAt?: string;
+}
+
+
+export const useResumeAnalysis = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation<IResumeAnalysisResponse, AxiosError<IErrorResponse>, FormData>({
+        mutationFn: async (formData) => {
+            const response = await axiosClient.post("/ai/resume-analyze", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                withCredentials: true,
+            });
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["resumes"] });
+        },
+    });
+};

@@ -13,8 +13,53 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGenerateImage } from "@/api/aiApi";
+import { useAppDispatch } from "@/hooks/hooks";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { setImgGenerate, setLoading } from "@/redux/slice/imgGenerateSlice";
+import { AxiosError } from "axios";
 
 export default function GImageForm() {
+  const [context, setContext] = useState("");
+  const [style, setStyle] = useState("");
+
+  const imgGenerateMutation = useGenerateImage();
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!context || !style) {
+      toast.error("Please fill in all fields.");
+      dispatch(setLoading(false));
+      return;
+    }
+    dispatch(setLoading(true));
+
+    try {
+      const result = await imgGenerateMutation.mutateAsync({
+        context,
+        style,
+      });
+      dispatch(setImgGenerate(result));
+
+      dispatch(setLoading(false));
+      toast.success(result.message || "Image generated successfully!!!!");
+      
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        toast.error(
+          error.response?.data.message ||
+            "An error occurred while generating the image."
+        );
+      }
+    } finally {
+      dispatch(setLoading(false));
+    }
+
+  }
+
   return (
     <Card className="w-full h-full">
       <CardHeader className="flex items-center space-x-2">
@@ -22,15 +67,16 @@ export default function GImageForm() {
         <h2 className="text-lg font-semibold">AI Image Generation</h2>
       </CardHeader>
 
+      <form onSubmit={handleSubmit} className="space-y-4">
       <CardContent>
         <div className="space-y-4 mb-5">
           <Label className="font-semibold">Describe Your Image</Label>
-          <Textarea placeholder="Describe what your want to see in the image..." />
+          <Textarea value={context} onChange={(e) => setContext(e.target.value)} placeholder="Describe what your want to see in the image..." />
         </div>
 
         <div className="space-y-4">
           <Label className="font-semibold text-lg">Style</Label>
-          <Select>
+          <Select value={style} onValueChange={setStyle}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
@@ -54,6 +100,7 @@ export default function GImageForm() {
           Generate Image
         </Button>
       </CardFooter>
+      </form>
     </Card>
   );
 }
