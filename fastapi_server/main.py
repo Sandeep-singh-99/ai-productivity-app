@@ -1,10 +1,11 @@
-from fastapi import FastAPI, Form
+from fastapi import FastAPI, Form, UploadFile, File
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from app.blog import get_blog_ai
 from app.article import get_article_ai
 from app.imageGenerate import generate_image_bytes
+from app.resumeAnalyzer import analyze_resume
 
 app = FastAPI()
 
@@ -43,3 +44,9 @@ async def generate_image(context: str = Form(...), style: str = Form(...)):
         return StreamingResponse(image_stream, media_type="image/png")
     
     return {"error": "Image not generated or an error occurred"}
+
+
+@app.post("/analyze-resume")
+async def analyze(file: UploadFile = File(...)):
+    result = await analyze_resume(file)
+    return {"feedback": result}
