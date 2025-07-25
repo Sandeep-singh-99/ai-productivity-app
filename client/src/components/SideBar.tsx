@@ -100,7 +100,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link>
 
         {/* Remove Background Link */}
-        <Link to={"/home/r-background"}>
+        {/* <Link to={"/home/r-background"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -109,10 +109,10 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <Eraser className="mr-2 h-4 w-4" />
             Remove Background
           </Button>
-        </Link>
+        </Link> */}
 
         {/* Remove Object Link */}
-        <Link to={"/home/r-object"}>
+        {/* <Link to={"/home/r-object"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -121,7 +121,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <Scissors className="mr-2 h-4 w-4" />
             Remove Object
           </Button>
-        </Link>
+        </Link> */}
 
         {/* Resume Link */}
         <Link to={"/home/resume"}>

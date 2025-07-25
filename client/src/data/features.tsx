@@ -32,12 +32,12 @@ export const features = [
     description:
       "Turn simple text prompts into high-quality visuals using generative AI.",
   },
-  {
-    icon: <ImageMinus className="w-10 h-10 mb-4 text-primary" />,
-    title: "Image Background Remover",
-    description:
-      "Automatically remove image backgrounds to create clean and transparent assets.",
-  },
+  // {
+  //   icon: <ImageMinus className="w-10 h-10 mb-4 text-primary" />,
+  //   title: "Image Background Remover",
+  //   description:
+  //     "Automatically remove image backgrounds to create clean and transparent assets.",
+  // },
   {
     icon: <FileSearch2 className="w-10 h-10 mb-4 text-primary" />,
     title: "PDF Summarizer",
