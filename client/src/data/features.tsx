@@ -1,24 +1,16 @@
 import {
   FileText,
-  NotebookPen,
   FileCheck2,
   ImagePlus,
-  ImageMinus,
   FileSearch2,
 } from "lucide-react";
 
 export const features = [
   {
     icon: <FileText className="w-10 h-10 mb-4 text-primary" />,
-    title: "AI Article Generator",
+    title: "AI Content Writer",
     description:
-      "Generate structured and informative articles on any topic using advanced LLMs.",
-  },
-  {
-    icon: <NotebookPen className="w-10 h-10 mb-4 text-primary" />,
-    title: "AI Blog Writer",
-    description:
-      "Create engaging blog posts tailored to your audience, tone, and intent.",
+      "Craft well-structured articles and engaging blog posts tailored to your topic, tone, and audience using powerful LLMs.",
   },
   {
     icon: <FileCheck2 className="w-10 h-10 mb-4 text-primary" />,
@@ -32,12 +24,6 @@ export const features = [
     description:
       "Turn simple text prompts into high-quality visuals using generative AI.",
   },
-  // {
-  //   icon: <ImageMinus className="w-10 h-10 mb-4 text-primary" />,
-  //   title: "Image Background Remover",
-  //   description:
-  //     "Automatically remove image backgrounds to create clean and transparent assets.",
-  // },
   {
     icon: <FileSearch2 className="w-10 h-10 mb-4 text-primary" />,
     title: "PDF Summarizer",

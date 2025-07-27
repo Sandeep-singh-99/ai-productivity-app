@@ -63,7 +63,7 @@ export default function AppHome() {
         </div>
       </section>
 
-      <PaymentComponents />
+      {/* <PaymentComponents /> */}
     </div>
   )
 }

@@ -4,6 +4,7 @@ import { useAppDispatch } from "./hooks/hooks";
 import { useEffect } from "react";
 import { useCheckAuth } from "./api/authApi";
 import { setUser } from "./redux/slice/authSlice";
+import FooterComponents from "./components/FooterComponents";
 //  import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
         theme="dark"
       />
       <Outlet />
+      <FooterComponents />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   BrainCircuit,
   Eraser,
+  File,
   FilePen,
   Hash,
   Home,
@@ -14,6 +15,7 @@ import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import FeedbackFormComponents from "./FeedbackFormComponents";
+import { toast } from "react-toastify";
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -134,6 +136,15 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             Review Resume
           </Button>
         </Link>
+
+        <Button
+            variant="ghost"
+            className="w-full justify-start"
+            onClick={() => {toast.success("PDF Summarizer is under development!"); if (closeSheet) closeSheet();}}
+          >
+            <File className="mr-2 h-4 w-4" />
+            PDF Summarizer
+          </Button>
 
         {/* Community Link */}
         {/* <Link to={"/home/feedback-form"}>
