@@ -16,6 +16,21 @@ interface IAuthResponse {
   role?: string;
 }
 
+interface IAllUserResponse {
+  _id: string;
+  imageUrlId: string;
+  imageUrl: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  message?: string;
+  success?: boolean;
+  createdAt?: string;
+  role?: string;
+}
+
+
 export const useSignUp = () => {
   return useMutation<IAuthResponse, Error, FormData>({
     mutationFn: async (formData: FormData) => {
@@ -61,6 +76,27 @@ export const useCheckAuth = () => {
         headers: {
           "Content-Type": "application/json",
         },
+      });
+      return response.data;
+    },
+    staleTime: 0,
+    gcTime: 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
+
+export const useGetAllUsers = () => {
+  return useQuery<IAllUserResponse[], Error>({
+    queryKey: ["allUsers"],
+    queryFn: async () => {
+      const response = await axiosClient.get("/user/get-all-users", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       });
       return response.data;
     },
