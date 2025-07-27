@@ -13,7 +13,7 @@ export default function BlogView() {
             <h2 className="text-lg font-semibold">Blog Configuration</h2>
         </CardHeader>
 
-        <CardContent className="h-screen overflow-y-scroll ">
+        <CardContent className="h-screen overflow-y-scroll overflow-auto">
             {
               isLoading ? (
                 <div className="flex flex-col items-center justify-center h-full space-y-4">

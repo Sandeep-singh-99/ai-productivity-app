@@ -52,7 +52,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
       <nav className="space-y-1">
         {/* Navigation Links */}
         {/* Home Link */}
-        <Link to={"/home/dashboard"}>
+        {/* <Link to={"/home/dashboard"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -61,7 +61,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <Home className="mr-2 h-4 w-4" />
             Dashboard
           </Button>
-        </Link>
+        </Link> */}
 
         {/* Article Link */}
         <Link to={"/home/article"}>
