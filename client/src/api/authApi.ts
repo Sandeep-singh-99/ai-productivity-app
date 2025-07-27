@@ -1,5 +1,5 @@
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/lib/axiosClient";
 
 
@@ -105,5 +105,24 @@ export const useGetAllUsers = () => {
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+  });
+};
+
+
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
+  return useMutation<IAuthResponse, Error, FormData>({
+    mutationFn: async (formData: FormData) => {
+      const response = await axiosClient.put(`/user/update-user`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
+      return response.data;
+    },
+     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] }); 
+    },
   });
 };
