@@ -29,7 +29,7 @@ export default function HeroSection() {
 
   return (
     <div className="w-full mx-auto min-h-screen px-4">
-      <div className="max-w-5xl mx-auto text-center pt-24 md:pt-28 xl:pt-20 lg:pt-36  flex flex-col items-center justify-between min-h-screen">
+      <div className="max-w-5xl mx-auto text-center pt-24 md:pt-28 xl:pt-36 lg:pt-36  flex flex-col items-center justify-between min-h-screen">
         <div className="md:space-y-7 space-y-10">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight">
             Create amazing content with
