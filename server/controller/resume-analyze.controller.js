@@ -5,7 +5,7 @@ export const resumeAnalyze = async (req, res) => {
         }
 
         // Call the AI service to analyze the resume
-        const response = await axios.post("http://127.0.0.1:8000/analyze-resume", {
+        const response = await axios.post(`${process.env.FASTAPI_URL}/analyze-resume`, {
             file: req.file
         });
 

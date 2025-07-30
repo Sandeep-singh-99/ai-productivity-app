@@ -3,7 +3,7 @@ import axios from "axios";
 export const generateBlog = async (req, res) => {
   const { question, category } = req.body;
   try {
-    const response = await axios.post("http://127.0.0.1:8000/blog", {
+    const response = await axios.post(`${process.env.FASTAPI_URL}/blog`, {
       query: question, 
       category: category,
     });

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const imageGenerate = async (req, res) => {
     try {
-        const response = await axios.post("http://127.0.0.1:8000/generate-image", {
+        const response = await axios.post(`${process.env.FASTAPI_URL}/generate-image`, {
             context,
             style
         })
