@@ -11,6 +11,7 @@ interface User {
     imageUrlId: string | null,
     message?: string,
     success?: boolean,
+    subscriptionPlan?: string,
     role?: string, 
 }
 

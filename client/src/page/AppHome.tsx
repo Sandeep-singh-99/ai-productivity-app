@@ -1,7 +1,6 @@
 import FeatureSection from '@/components/Feature-Section'
 import HeroSection from '@/components/HeroSection'
 import NavBar from '@/components/NavBar'
-import PaymentComponents from '@/components/PaymentComponents'
 import { Card, CardContent } from '@/components/ui/card'
 import { testimonial } from '@/data/testmonial'
 

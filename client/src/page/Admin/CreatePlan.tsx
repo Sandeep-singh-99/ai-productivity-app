@@ -2,7 +2,7 @@ import { useGetPlans } from "@/api/planApi";
 import CreatePlanForm from "@/components/Admin/CreatePlanForm";
 import PaymentCardComponents from "@/components/Admin/PaymenCardComponents";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { setPlans } from "@/redux/slice/planSlice";
+import { addPlan } from "@/redux/slice/planSlice";
 import { useEffect } from "react";
 
 
@@ -14,7 +14,7 @@ export default function CreatePlan() {
 
   useEffect(() => {
      if (planData && planData.data) {
-    dispatch(setPlans(planData.data)); 
+    dispatch(addPlan(planData.data)); 
   }
   }, [planData, dispatch]);
 

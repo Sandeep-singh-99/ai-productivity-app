@@ -1,9 +1,4 @@
 import {
-  Facebook,
-  Github,
-  Instagram,
-  Linkedin,
-  Twitter,
   Sparkles,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";

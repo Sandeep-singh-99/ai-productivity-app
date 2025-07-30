@@ -14,7 +14,7 @@ interface IUser {
 interface IFeedback {
     _id?: string;
     feedback: string;
-    userId?: string | IUser;
+    userId?: IUser;
     createdAt?: string;
     message?: string;
     success?: boolean;

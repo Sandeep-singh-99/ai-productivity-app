@@ -1,14 +1,11 @@
 import { useState } from "react";
 import {
   BrainCircuit,
-  Eraser,
   File,
   FilePen,
   Hash,
-  Home,
   Image,
   LayoutDashboard,
-  Scissors,
   ScrollText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
