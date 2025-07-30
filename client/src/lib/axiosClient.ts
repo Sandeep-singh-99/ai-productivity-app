@@ -2,12 +2,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   withCredentials: true,
 });
 
 const fetchCsrfToken = async () => {
-  const res = await axios.get("http://localhost:5000/api/v1/csrf-token", {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/csrf-token`, {
     withCredentials: true,
   });
   return res.data.csrfToken;
