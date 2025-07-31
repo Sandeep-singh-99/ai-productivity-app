@@ -5,7 +5,6 @@ import cors from "cors";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-import csrf from "csurf";
 import cookieParser from "cookie-parser";
 
 import { ConnectDB } from "./config/db.js";
@@ -25,34 +24,35 @@ app.use(cookieParser());
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
-app.use(helmet());
-app.use(
-  csrf({
-    cookie: {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-    },
-  })
-);
-
-// Send CSRF token to frontend
-app.get("/api/v1/csrf-token", (req, res) => {
-  res.cookie("csrfToken", req.csrfToken(), {
-    httpOnly: false, // must be false so frontend JS can read
-    secure: true,
-    sameSite: "None", // important for cross-origin (frontend ↔ backend on Render)
-  });
-  res.json({ csrfToken: req.csrfToken() });
-});
-
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL, 
     credentials: true,
   })
 );
+app.use(morgan("dev"));
+app.use(helmet());
+// app.use(
+//   csrf({
+//     cookie: {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "None",
+//     },
+//   })
+// );
+
+// // Send CSRF token to frontend
+// app.get("/api/v1/csrf-token", (req, res) => {
+//   res.cookie("csrfToken", req.csrfToken(), {
+//     httpOnly: false, // must be false so frontend JS can read
+//     secure: true,
+//     sameSite: "None", // important for cross-origin (frontend ↔ backend on Render)
+//   });
+//   res.json({ csrfToken: req.csrfToken() });
+// });
+
+
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/plan", createPaymentPlanRoutes);
