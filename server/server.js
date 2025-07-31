@@ -22,13 +22,8 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
   max: 100, 
 })
-
-app.use(limiter);
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-}));
 app.use(cookieParser());
+app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
@@ -45,6 +40,10 @@ app.get("/api/v1/csrf-token", (req, res) => {
   res.json({ csrfToken: req.csrfToken() });
 });
 
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+}));
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/plan', createPaymentPlanRoutes);
