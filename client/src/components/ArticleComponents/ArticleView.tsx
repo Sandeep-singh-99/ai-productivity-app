@@ -21,7 +21,7 @@ export default function ArticleView() {
                   <p>Loading...</p>
                 </div>
             ) : article ? (
-              <MDEditor.Markdown source={article.data} />
+              <MDEditor.Markdown source={article.data} className="p-2 rounded-md" />
             ) : (
                <div className="flex flex-col items-center justify-center h-full space-y-4">
                 <SquarePen className="h-10 w-10" />

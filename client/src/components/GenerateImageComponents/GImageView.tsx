@@ -22,7 +22,7 @@ export default function GImageView() {
           </div>
         ) : imgGenerate ? (
           <div>
-            <img src={imgGenerate.data} alt="Generated Image" />
+            <img src={imgGenerate.data} alt="Generated Image" className="p-2 rounded-md" />
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full space-y-4">

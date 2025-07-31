@@ -21,7 +21,7 @@ export default function BlogView() {
                   <p>Loading...</p>
                 </div>
               ) : blog ? (
-                <MDEditor.Markdown source={blog.data} />
+                <MDEditor.Markdown source={blog.data} className="p-2 rounded-md" />
               ) : (
                 <div className="flex flex-col items-center justify-center h-full space-y-4">
                 <SquarePen className="h-10 w-10" />

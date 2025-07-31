@@ -18,7 +18,7 @@ export default function ResumeView() {
             <p>Loading...</p>
           </div>
         ) : resume ? (
-          <div>{resume.data}</div>
+          <div className="p-2 rounded-md">{resume.data}</div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full space-y-4">
             <NotebookIcon className="h-10 w-10" />
