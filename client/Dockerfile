@@ -2,9 +2,6 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy env file explicitly
-COPY .env ./
-
 # Copy only package files and install dependencies
 COPY package*.json ./
 RUN npm install
