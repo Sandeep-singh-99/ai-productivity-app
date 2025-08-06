@@ -9,7 +9,7 @@ export default defineConfig({
     port: 3000,
     host: true,
     allowedHosts: [
-      'frontend-wxwn.onrender.com', // Add your Render frontend domain
+      'prodexa-ai.onrender.com', // Add your Render frontend domain
       'localhost',
     ],
   },
