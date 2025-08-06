@@ -4,9 +4,7 @@ import {
   File,
   FilePen,
   Hash,
-  Image,
   LayoutDashboard,
-  ScrollText,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -87,7 +85,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link>
 
         {/* Generate Image Link */}
-        <Link to={"/home/g-image"}>
+        {/* <Link to={"/home/g-image"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -96,7 +94,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <Image className="mr-2 h-4 w-4" />
             Generate Image
           </Button>
-        </Link>
+        </Link> */}
 
         {/* Remove Background Link */}
         {/* <Link to={"/home/r-background"}>
@@ -123,7 +121,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
         </Link> */}
 
         {/* Resume Link */}
-        <Link to={"/home/resume"}>
+        {/* <Link to={"/home/resume"}>
           <Button
             variant="ghost"
             className="w-full justify-start"
@@ -132,7 +130,7 @@ function DashboardSidebar({ closeSheet }: { closeSheet?: () => void }) {
             <ScrollText className="mr-2 h-4 w-4" />
             Review Resume
           </Button>
-        </Link>
+        </Link> */}
 
         <Button
             variant="ghost"
